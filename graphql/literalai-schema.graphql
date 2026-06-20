@@ -1,0 +1,309 @@
+"""
+Literal AI GraphQL Schema (REPRESENTATIVE SUBSET)
+
+This SDL is a representative reconstruction of the Literal AI GraphQL API surface,
+derived from the public Python and TypeScript SDK operations and documentation. It is
+NOT a verbatim export of Literal AI's internal schema; field names, nullability, and
+pagination shapes approximate the documented behavior.
+
+Endpoint: https://cloud.getliteral.ai/api/graphql  (POST, header x-api-key)
+Source:   https://docs.literalai.com/python-client/api-reference/api
+          https://github.com/Chainlit/literalai-python
+"""
+
+# ---------------------------------------------------------------------------
+# Scalars
+# ---------------------------------------------------------------------------
+
+scalar DateTime
+scalar Json
+
+# ---------------------------------------------------------------------------
+# Enums
+# ---------------------------------------------------------------------------
+
+enum StepType {
+  RUN
+  TOOL
+  LLM
+  EMBEDDING
+  RETRIEVAL
+  RERANK
+  UNDEFINED
+}
+
+enum GenerationType {
+  CHAT
+  COMPLETION
+}
+
+enum ScoreType {
+  HUMAN
+  AI
+  CODE
+}
+
+enum DatasetType {
+  KEY_VALUE
+  GENERATION
+}
+
+# ---------------------------------------------------------------------------
+# Pagination
+# ---------------------------------------------------------------------------
+
+type PageInfo {
+  hasNextPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+# ---------------------------------------------------------------------------
+# Object types
+# ---------------------------------------------------------------------------
+
+type Participant {
+  id: ID!
+  identifier: String
+  metadata: Json
+  createdAt: DateTime
+}
+
+type Thread {
+  id: ID!
+  name: String
+  metadata: Json
+  tags: [String!]
+  participant: Participant
+  environment: String
+  steps: [Step!]
+  createdAt: DateTime
+}
+
+type Step {
+  id: ID!
+  threadId: ID
+  parentId: ID
+  name: String
+  type: StepType!
+  input: Json
+  output: Json
+  metadata: Json
+  tags: [String!]
+  generation: Generation
+  scores: [Score!]
+  attachments: [Attachment!]
+  startTime: DateTime
+  endTime: DateTime
+  createdAt: DateTime
+}
+
+type Generation {
+  id: ID!
+  type: GenerationType!
+  promptId: ID
+  provider: String
+  model: String
+  settings: Json
+  messages: Json
+  completion: String
+  variables: Json
+  tokenCount: Int
+  inputTokenCount: Int
+  outputTokenCount: Int
+  duration: Float
+  createdAt: DateTime
+}
+
+type Score {
+  id: ID!
+  name: String!
+  type: ScoreType!
+  value: Float!
+  label: String
+  comment: String
+  stepId: ID
+  generationId: ID
+  datasetExperimentItemId: ID
+  metadata: Json
+  createdAt: DateTime
+}
+
+type Attachment {
+  id: ID!
+  stepId: ID
+  threadId: ID
+  name: String
+  mime: String
+  url: String
+  objectKey: String
+  metadata: Json
+}
+
+type Prompt {
+  id: ID!
+  name: String!
+  version: Int!
+  templateMessages: Json!
+  settings: Json
+  tools: Json
+  variables: Json
+  createdAt: DateTime
+}
+
+type DatasetItem {
+  id: ID!
+  datasetId: ID!
+  input: Json
+  expectedOutput: Json
+  intermediarySteps: Json
+  metadata: Json
+  createdAt: DateTime
+}
+
+type Dataset {
+  id: ID!
+  name: String!
+  description: String
+  type: DatasetType!
+  metadata: Json
+  items: [DatasetItem!]
+  createdAt: DateTime
+}
+
+type ExperimentItem {
+  id: ID!
+  experimentId: ID!
+  datasetItemId: ID
+  input: Json
+  output: Json
+  scores: [Score!]
+}
+
+type Experiment {
+  id: ID!
+  datasetId: ID!
+  name: String!
+  params: Json
+  items: [ExperimentItem!]
+  createdAt: DateTime
+}
+
+# ---------------------------------------------------------------------------
+# Connections (Relay-style)
+# ---------------------------------------------------------------------------
+
+type ThreadEdge {
+  cursor: String!
+  node: Thread!
+}
+
+type ThreadConnection {
+  pageInfo: PageInfo!
+  totalCount: Int
+  edges: [ThreadEdge!]!
+}
+
+type StepEdge {
+  cursor: String!
+  node: Step!
+}
+
+type StepConnection {
+  pageInfo: PageInfo!
+  totalCount: Int
+  edges: [StepEdge!]!
+}
+
+type GenerationEdge {
+  cursor: String!
+  node: Generation!
+}
+
+type GenerationConnection {
+  pageInfo: PageInfo!
+  totalCount: Int
+  edges: [GenerationEdge!]!
+}
+
+# ---------------------------------------------------------------------------
+# Input filters
+# ---------------------------------------------------------------------------
+
+input StringFilter {
+  operator: String!
+  value: String!
+}
+
+input threadsInputType {
+  field: String!
+  operator: String!
+  value: Json
+}
+
+input stepsInputType {
+  field: String!
+  operator: String!
+  value: Json
+}
+
+input generationsInputType {
+  field: String!
+  operator: String!
+  value: Json
+}
+
+# ---------------------------------------------------------------------------
+# Queries
+# ---------------------------------------------------------------------------
+
+type Query {
+  thread(id: String!): Thread
+  threads(first: Int, after: ID, filters: [threadsInputType!]): ThreadConnection
+  step(id: String!): Step
+  steps(first: Int, after: ID, filters: [stepsInputType!]): StepConnection
+  generation(id: String!): Generation
+  generations(first: Int, after: ID, filters: [generationsInputType!]): GenerationConnection
+  participant(id: String, identifier: String): Participant
+  dataset(id: String!): Dataset
+  datasets: [Dataset!]
+  datasetItem(id: String!): DatasetItem
+  experiment(id: String!): Experiment
+  prompt(id: String, name: String, version: Int): Prompt
+}
+
+# ---------------------------------------------------------------------------
+# Mutations
+# ---------------------------------------------------------------------------
+
+type Mutation {
+  upsertThread(id: String!, name: String, metadata: Json, tags: [String!], participantId: String): Thread
+  deleteThread(id: String!): Boolean
+
+  ingestStep(id: String!, threadId: String, parentId: String, type: StepType!, name: String, input: Json, output: Json, metadata: Json, startTime: DateTime, endTime: DateTime): Step
+  updateStep(id: String!, name: String, input: Json, output: Json, metadata: Json): Step
+  deleteStep(id: String!): Boolean
+
+  createGeneration(type: GenerationType!, model: String, provider: String, settings: Json, messages: Json, completion: String, variables: Json, tokenCount: Int): Generation
+
+  createScore(name: String!, type: ScoreType!, value: Float!, label: String, comment: String, stepId: String, generationId: String, datasetExperimentItemId: String, metadata: Json): Score
+  updateScore(id: String!, value: Float, label: String, comment: String): Score
+  deleteScore(id: String!): Boolean
+
+  upsertParticipant(identifier: String!, metadata: Json): Participant
+  deleteParticipant(id: String!): Boolean
+
+  createDataset(name: String!, description: String, type: DatasetType!, metadata: Json): Dataset
+  updateDataset(id: String!, name: String, description: String, metadata: Json): Dataset
+  deleteDataset(id: String!): Boolean
+  createDatasetItem(datasetId: String!, input: Json, expectedOutput: Json, metadata: Json): DatasetItem
+  deleteDatasetItem(id: String!): Boolean
+  addStepToDataset(datasetId: String!, stepId: String!, metadata: Json): DatasetItem
+
+  createExperiment(datasetId: String!, name: String!, params: Json): Experiment
+  createExperimentItem(experimentId: String!, datasetItemId: String, input: Json, output: Json, scores: Json): ExperimentItem
+
+  createPrompt(name: String!, templateMessages: Json!, settings: Json, tools: Json): Prompt
+
+  createAttachment(stepId: String, threadId: String, name: String, mime: String, objectKey: String, url: String, metadata: Json): Attachment
+}

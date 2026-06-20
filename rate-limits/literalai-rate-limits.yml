@@ -1,0 +1,67 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Literal AI
+providerId: literalai
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: false
+tags:
+- AI
+- LLM
+- Observability
+- Evaluation
+- Monitoring
+- Rate Limiting
+- Quotas
+- Throttling
+description: >-
+  Literal AI meters API usage primarily through monthly "Log Units" of
+  ingestion that vary by plan, plus data-retention windows and seat counts.
+  The GraphQL endpoint and OTEL ingestion path are also subject to
+  per-account request throttling to protect the platform. Specific request
+  thresholds and Log Unit conversions are not published as fixed numbers and
+  are not reconciled in this artifact.
+notes: >-
+  Confirm Log Unit quotas, retention, and any per-second/per-minute request
+  limits in the Literal AI dashboard and pricing page at reconciliation;
+  values change across Basic, Pro, and Enterprise tiers.
+sources:
+- https://www.literalai.com/pricing
+- https://docs.literalai.com
+responseCodes:
+  throttled: 429
+limits:
+- name: Log Units (Monthly Ingestion)
+  scope: account
+  metric: log_units
+  limit: see provider documentation
+  notes: Primary metering unit; 10,000/month on Basic, higher on Pro/Enterprise.
+- name: Data Retention
+  scope: account
+  metric: days
+  limit: see provider documentation
+  notes: 30 days on Basic; extended on paid tiers.
+- name: Team Members (Seats)
+  scope: account
+  metric: seats
+  limit: see provider documentation
+  notes: Up to 3 on Basic; more on Pro/Enterprise.
+- name: GraphQL Requests
+  scope: account
+  metric: requests
+  limit: see provider documentation
+  notes: Per-account throttling on the /api/graphql endpoint.
+- name: OTEL Ingestion
+  scope: account
+  metric: spans
+  limit: see provider documentation
+  notes: OpenTelemetry (OTLP) trace ingestion counts toward Log Unit usage.
+policies:
+- name: Tiered Limits
+  description: Log Unit quotas, retention, and seats increase from Basic to Pro to Enterprise.
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter and honor Retry-After on 429 responses.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

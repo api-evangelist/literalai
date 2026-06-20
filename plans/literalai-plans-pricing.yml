@@ -1,0 +1,140 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Literal AI
+providerId: literalai
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: false
+tags:
+- AI
+- LLM
+- Observability
+- Evaluation
+- Monitoring
+- Plans
+description: >-
+  Literal AI uses a freemium, seat-plus-usage model. A free Basic tier offers
+  limited monthly "Log Units" of ingestion, short data retention, and a small
+  number of seats. Paid Pro and Enterprise tiers raise usage, retention, and
+  seats and add collaboration, security, self-hosting, and support features.
+  Pro and Enterprise are sales/contact-led; precise per-unit prices and quotas
+  are not published as fixed list rates, so this artifact is not reconciled.
+notes: >-
+  Quotas (Log Units, retention days, seats) and Pro/Enterprise pricing must be
+  verified on the Literal AI pricing page and via sales at reconciliation time;
+  values shown are representative of the published tier structure.
+sources:
+- https://www.literalai.com/pricing
+- https://docs.literalai.com
+plans:
+- id: literalai-basic
+  name: Basic (Free)
+  type: free
+  description: >-
+    Free entry tier for evaluating Literal AI with limited monthly ingestion,
+    short retention, and a small team.
+  entries:
+  - label: Log Units
+    name: log_units
+    type: usage
+    metric: log_units
+    limit: 10000
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $0.00
+    userMultiplied: false
+  - label: Data Retention
+    name: retention
+    type: flat
+    metric: days
+    limit: 30
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: included
+    userMultiplied: false
+  - label: Team Members
+    name: seats
+    type: flat
+    metric: seats
+    limit: 3
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: included
+    userMultiplied: false
+  elements:
+  - name: Observability (Threads, Steps, Generations)
+  - name: Prompt Management
+  - name: Datasets & Experiments
+  - name: Scores & Feedback
+- id: literalai-pro
+  name: Pro
+  type: paid
+  description: >-
+    Production tier with higher Log Unit volume, extended retention, more seats,
+    custom dashboards, and team collaboration. Pricing is contact-led.
+  entries:
+  - label: Log Units
+    name: log_units
+    type: usage
+    metric: log_units
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  - label: Extended Retention
+    name: retention
+    type: flat
+    metric: days
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  - label: Team Members
+    name: seats
+    type: seat
+    metric: seats
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: true
+  elements:
+  - name: Custom Dashboards
+  - name: Team Collaboration
+  - name: Extended Data Retention
+  - name: Online & Offline Evaluation
+- id: literalai-enterprise
+  name: Enterprise
+  type: enterprise
+  description: >-
+    Enterprise tier for the highest data-privacy and scale requirements:
+    self-hosting / VPC deployment, SSO, advanced security, SLAs, and dedicated
+    support under a negotiated contract.
+  entries:
+  - label: Enterprise Agreement
+    name: enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Self-Hosting / VPC Deployment
+  - name: SSO & Advanced Security
+  - name: Custom Volume & Retention
+  - name: Dedicated Support & SLAs
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

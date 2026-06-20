@@ -1,0 +1,180 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Literal AI API",
+    "version": "1.0",
+    "description": "GraphQL API for the Literal AI LLM observability, evaluation, and analytics platform. A single POST /api/graphql endpoint serves all operations across threads, steps, generations, datasets, experiments, prompts, and scores."
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "apikey": {
+        "key": "x-api-key",
+        "value": "{{LITERAL_API_KEY}}",
+        "in": "header"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "GraphQL",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Thread",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.getliteral.ai/api/graphql",
+            "headers": [
+              { "name": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "type": "graphql",
+              "query": "query GetThread($id: String!) { thread(id: $id) { id name createdAt steps { id name type input output } } }",
+              "variables": "{ \"id\": \"thread_123\" }"
+            }
+          },
+          "docs": "Fetch a thread and its nested steps."
+        },
+        {
+          "info": {
+            "name": "List Generations",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.getliteral.ai/api/graphql",
+            "headers": [
+              { "name": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "type": "graphql",
+              "query": "query Generations($first: Int) { generations(first: $first) { pageInfo { hasNextPage endCursor } edges { node { id type model tokenCount } } } }",
+              "variables": "{ \"first\": 20 }"
+            }
+          },
+          "docs": "Paginate logged chat/completion generations."
+        },
+        {
+          "info": {
+            "name": "Upsert Thread",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.getliteral.ai/api/graphql",
+            "headers": [
+              { "name": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "type": "graphql",
+              "query": "mutation UpsertThread($id: String!, $name: String) { upsertThread(id: $id, name: $name) { id name } }",
+              "variables": "{ \"id\": \"thread_123\", \"name\": \"Support conversation\" }"
+            }
+          },
+          "docs": "Create or update a thread."
+        },
+        {
+          "info": {
+            "name": "Ingest Step",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.getliteral.ai/api/graphql",
+            "headers": [
+              { "name": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "type": "graphql",
+              "query": "mutation IngestStep($id: String!, $threadId: String, $type: StepType!, $name: String, $input: Json, $output: Json) { ingestStep(id: $id, threadId: $threadId, type: $type, name: $name, input: $input, output: $output) { id type } }",
+              "variables": "{ \"id\": \"step_456\", \"threadId\": \"thread_123\", \"type\": \"LLM\", \"name\": \"chat-completion\" }"
+            }
+          },
+          "docs": "Send a step (run/tool/LLM/retrieval) for a thread."
+        },
+        {
+          "info": {
+            "name": "Create Score",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.getliteral.ai/api/graphql",
+            "headers": [
+              { "name": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "type": "graphql",
+              "query": "mutation CreateScore($name: String!, $type: ScoreType!, $value: Float!, $stepId: String) { createScore(name: $name, type: $type, value: $value, stepId: $stepId) { id name value } }",
+              "variables": "{ \"name\": \"relevance\", \"type\": \"HUMAN\", \"value\": 1, \"stepId\": \"step_456\" }"
+            }
+          },
+          "docs": "Attach a score to a step or generation."
+        },
+        {
+          "info": {
+            "name": "Create Dataset",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.getliteral.ai/api/graphql",
+            "headers": [
+              { "name": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "type": "graphql",
+              "query": "mutation CreateDataset($name: String!, $type: DatasetType!) { createDataset(name: $name, type: $type) { id name } }",
+              "variables": "{ \"name\": \"regression-set\", \"type\": \"KEY_VALUE\" }"
+            }
+          },
+          "docs": "Create an evaluation dataset."
+        },
+        {
+          "info": {
+            "name": "Create Experiment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.getliteral.ai/api/graphql",
+            "headers": [
+              { "name": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "type": "graphql",
+              "query": "mutation CreateExperiment($datasetId: String!, $name: String!) { createExperiment(datasetId: $datasetId, name: $name) { id name } }",
+              "variables": "{ \"datasetId\": \"dataset_789\", \"name\": \"prompt-v2-run\" }"
+            }
+          },
+          "docs": "Create a dataset experiment for benchmarking."
+        },
+        {
+          "info": {
+            "name": "Create Prompt",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.getliteral.ai/api/graphql",
+            "headers": [
+              { "name": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "type": "graphql",
+              "query": "mutation CreatePrompt($name: String!, $templateMessages: Json!, $settings: Json) { createPrompt(name: $name, templateMessages: $templateMessages, settings: $settings) { id name version } }",
+              "variables": "{ \"name\": \"support-assistant\", \"templateMessages\": [], \"settings\": {} }"
+            }
+          },
+          "docs": "Version and store a prompt template."
+        }
+      ]
+    }
+  ]
+}

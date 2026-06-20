@@ -1,0 +1,210 @@
+{
+  "info": {
+    "name": "Literal AI API",
+    "description": "GraphQL API for the Literal AI LLM observability, evaluation, and analytics platform. A single POST /api/graphql endpoint serves all operations across threads, steps, generations, datasets, experiments, prompts, and scores. Authenticate with the x-api-key header.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      { "key": "key", "value": "x-api-key", "type": "string" },
+      { "key": "value", "value": "{{LITERAL_API_KEY}}", "type": "string" },
+      { "key": "in", "value": "header", "type": "string" }
+    ]
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "https://cloud.getliteral.ai" },
+    { "key": "LITERAL_API_KEY", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "GraphQL",
+      "item": [
+        {
+          "name": "Get Thread",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/graphql",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "graphql"]
+            },
+            "body": {
+              "mode": "graphql",
+              "graphql": {
+                "query": "query GetThread($id: String!) {\n  thread(id: $id) {\n    id\n    name\n    createdAt\n    steps { id name type input output }\n  }\n}",
+                "variables": "{\n  \"id\": \"thread_123\"\n}"
+              }
+            },
+            "description": "Fetch a thread and its nested steps."
+          },
+          "response": []
+        },
+        {
+          "name": "List Generations",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/graphql",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "graphql"]
+            },
+            "body": {
+              "mode": "graphql",
+              "graphql": {
+                "query": "query Generations($first: Int) {\n  generations(first: $first) {\n    pageInfo { hasNextPage endCursor }\n    edges { node { id type model tokenCount } }\n  }\n}",
+                "variables": "{\n  \"first\": 20\n}"
+              }
+            },
+            "description": "Paginate logged chat/completion generations."
+          },
+          "response": []
+        },
+        {
+          "name": "Upsert Thread",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/graphql",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "graphql"]
+            },
+            "body": {
+              "mode": "graphql",
+              "graphql": {
+                "query": "mutation UpsertThread($id: String!, $name: String) {\n  upsertThread(id: $id, name: $name) {\n    id\n    name\n  }\n}",
+                "variables": "{\n  \"id\": \"thread_123\",\n  \"name\": \"Support conversation\"\n}"
+              }
+            },
+            "description": "Create or update a thread."
+          },
+          "response": []
+        },
+        {
+          "name": "Ingest Step",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/graphql",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "graphql"]
+            },
+            "body": {
+              "mode": "graphql",
+              "graphql": {
+                "query": "mutation IngestStep($id: String!, $threadId: String, $type: StepType!, $name: String, $input: Json, $output: Json) {\n  ingestStep(id: $id, threadId: $threadId, type: $type, name: $name, input: $input, output: $output) {\n    id\n    type\n  }\n}",
+                "variables": "{\n  \"id\": \"step_456\",\n  \"threadId\": \"thread_123\",\n  \"type\": \"LLM\",\n  \"name\": \"chat-completion\"\n}"
+              }
+            },
+            "description": "Send a step (run/tool/LLM/retrieval) for a thread."
+          },
+          "response": []
+        },
+        {
+          "name": "Create Score",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/graphql",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "graphql"]
+            },
+            "body": {
+              "mode": "graphql",
+              "graphql": {
+                "query": "mutation CreateScore($name: String!, $type: ScoreType!, $value: Float!, $stepId: String) {\n  createScore(name: $name, type: $type, value: $value, stepId: $stepId) {\n    id\n    name\n    value\n  }\n}",
+                "variables": "{\n  \"name\": \"relevance\",\n  \"type\": \"HUMAN\",\n  \"value\": 1,\n  \"stepId\": \"step_456\"\n}"
+              }
+            },
+            "description": "Attach a score to a step or generation."
+          },
+          "response": []
+        },
+        {
+          "name": "Create Dataset",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/graphql",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "graphql"]
+            },
+            "body": {
+              "mode": "graphql",
+              "graphql": {
+                "query": "mutation CreateDataset($name: String!, $type: DatasetType!) {\n  createDataset(name: $name, type: $type) {\n    id\n    name\n  }\n}",
+                "variables": "{\n  \"name\": \"regression-set\",\n  \"type\": \"KEY_VALUE\"\n}"
+              }
+            },
+            "description": "Create an evaluation dataset."
+          },
+          "response": []
+        },
+        {
+          "name": "Create Experiment",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/graphql",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "graphql"]
+            },
+            "body": {
+              "mode": "graphql",
+              "graphql": {
+                "query": "mutation CreateExperiment($datasetId: String!, $name: String!) {\n  createExperiment(datasetId: $datasetId, name: $name) {\n    id\n    name\n  }\n}",
+                "variables": "{\n  \"datasetId\": \"dataset_789\",\n  \"name\": \"prompt-v2-run\"\n}"
+              }
+            },
+            "description": "Create a dataset experiment for benchmarking."
+          },
+          "response": []
+        },
+        {
+          "name": "Create Prompt",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/graphql",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "graphql"]
+            },
+            "body": {
+              "mode": "graphql",
+              "graphql": {
+                "query": "mutation CreatePrompt($name: String!, $templateMessages: Json!, $settings: Json) {\n  createPrompt(name: $name, templateMessages: $templateMessages, settings: $settings) {\n    id\n    name\n    version\n  }\n}",
+                "variables": "{\n  \"name\": \"support-assistant\",\n  \"templateMessages\": [],\n  \"settings\": {}\n}"
+              }
+            },
+            "description": "Version and store a prompt template."
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

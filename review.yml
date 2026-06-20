@@ -1,0 +1,101 @@
+aid: literalai
+name: Literal AI
+review:
+  question: What transport does the Literal AI API use, and does it expose a documented public WebSocket or streaming API?
+  answer: false
+  date: '2026-06-20'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was created. Literal AI's public API is GraphQL over
+    HTTPS (POST /api/graphql) plus a one-way OpenTelemetry (OTLP/HTTP)
+    ingestion path. Neither is a streaming or event-driven subscription
+    surface: there is no documented public WebSocket endpoint and no GraphQL
+    subscriptions in the SDK operations, so nothing falls within AsyncAPI
+    scope (which under current API Evangelist scope covers SSE/WebSocket
+    streaming).
+findings:
+  summary: |
+    Literal AI is the observability, evaluation, and analytics platform from
+    the Chainlit team for production LLM applications. Its public API is
+    GraphQL: the Python (literalai) and TypeScript (@literalai/client) SDKs
+    are thin clients over a single GraphQL endpoint built by appending
+    /api/graphql to the configured base URL (cloud default
+    https://cloud.getliteral.ai). Requests authenticate with the x-api-key
+    header carrying a project API key (LITERAL_API_KEY). All CRUD and query
+    operations - threads, steps, generations, datasets, experiments, prompts,
+    scores, participants, attachments - are GraphQL queries and mutations; no
+    public REST resource API is documented. Separately, Literal AI accepts
+    OpenTelemetry (OTLP/HTTP) traces for instrumented apps, mapping OTEL spans
+    to steps and generations; this is one-way ingestion, not a queryable or
+    bidirectional transport. No WebSocket (ws/wss) endpoint and no GraphQL
+    subscription operations are documented.
+  transports:
+    - protocol: GraphQL
+      scheme: https
+      baseURL: https://cloud.getliteral.ai/api/graphql
+      method: POST
+      documented: true
+      note: Single GraphQL endpoint for all operations; auth via x-api-key header.
+    - protocol: OTEL
+      scheme: https
+      note: OpenTelemetry (OTLP/HTTP) trace ingestion; one-way push, spans mapped to steps/generations. Not queryable.
+      documented: true
+    - protocol: REST
+      scheme: https
+      documented: false
+      note: No documented public REST resource API; the SDKs use GraphQL exclusively.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint and no GraphQL subscriptions documented as of the review date.
+  endpointsConfirmed:
+    - POST https://cloud.getliteral.ai/api/graphql
+    - OTLP/HTTP OpenTelemetry trace ingestion (see Literal AI docs for current OTEL endpoint)
+  graphqlOperations:
+    queries:
+      - thread / threads
+      - step / steps
+      - generation / generations
+      - participant
+      - dataset / datasets / datasetItem
+      - experiment
+      - prompt
+    mutations:
+      - upsertThread / deleteThread
+      - ingestStep / updateStep / deleteStep
+      - createGeneration
+      - createScore / updateScore / deleteScore
+      - upsertParticipant / deleteParticipant
+      - createDataset / updateDataset / deleteDataset / createDatasetItem / addStepToDataset
+      - createExperiment / createExperimentItem
+      - createPrompt
+      - createAttachment
+sources:
+  - url: https://www.literalai.com
+    type: Website
+    note: Product overview - observability, evaluation, analytics for LLM apps.
+  - url: https://docs.literalai.com
+    type: Documentation
+    note: Platform docs; SDK-first, GraphQL transport, OTEL ingestion.
+  - url: https://docs.literalai.com/python-client/api-reference/api
+    type: APIReference
+    note: Python LiteralAPI/AsyncLiteralAPI methods over the GraphQL endpoint.
+  - url: https://github.com/Chainlit/literalai-python
+    type: SourceCode
+    note: Endpoint built as url + "/api/graphql"; API key sent as x-api-key header.
+actions:
+  graphqlMarkdownPath: graphql/literalai-graphql.md
+  graphqlSchemaPath: graphql/literalai-schema.graphql
+  openapiPath: openapi/literalai-openapi.yml
+  apisYmlUpdated: true
+  reason: |
+    Transport confirmed as GraphQL (POST /api/graphql, x-api-key auth) with a
+    one-way OTEL ingestion path. A representative GraphQL schema and operations
+    guide were authored, and the single GraphQL endpoint was modeled in
+    OpenAPI 3.0.1 for REST-tool discoverability. No AsyncAPI was created
+    because no WebSocket/SSE streaming or GraphQL subscription surface is
+    documented.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

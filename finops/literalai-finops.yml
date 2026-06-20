@@ -1,0 +1,95 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Literal AI
+providerId: literalai
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: false
+tags:
+- AI
+- LLM
+- Observability
+- Evaluation
+- Monitoring
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Literal AI spend. Literal AI bills on a freemium seat-plus-
+  usage model: a free Basic tier with capped monthly Log Units, and paid Pro
+  and Enterprise tiers that raise ingestion volume, data retention, and seats.
+  The dominant cost driver is Log Unit ingestion (threads, steps, generations,
+  and OTEL spans), alongside per-seat and retention charges. Pro/Enterprise
+  prices are contact-led, so amounts are not reconciled here.
+notes: >-
+  Verify Log Unit pricing, retention add-ons, and seat costs against the
+  Literal AI pricing page and a sales quote during reconciliation.
+sources:
+- https://www.literalai.com/pricing
+- https://docs.literalai.com
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Literal AI
+serviceCategory: AI and Machine Learning
+billingModel:
+  pricingCategory: Usage-Based
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+  - Usage
+  - Purchase
+  - Adjustment
+focusColumns:
+  ServiceName: Literal AI
+  ServiceCategory: AI and Machine Learning
+  ProviderName: Literal AI
+  PublisherName: Literal AI
+  InvoiceIssuerName: Literal AI
+  BillingCurrency: USD
+  ChargeCategory: Usage
+  PricingCategory: Usage-Based
+meters:
+- name: log_units
+  description: Monthly ingestion units consumed by threads, steps, and generations logged to the platform.
+  unit: log_units
+  aggregation: sum
+  dimensions:
+  - account
+  - project
+- name: otel_spans
+  description: OpenTelemetry (OTLP) spans ingested as steps/generations, counted toward Log Unit usage.
+  unit: spans
+  aggregation: sum
+  dimensions:
+  - account
+  - project
+- name: data_retention
+  description: Data-retention window beyond the included tier allowance.
+  unit: days
+  aggregation: max
+  dimensions:
+  - account
+- name: seats
+  description: Active team members / seats on the workspace.
+  unit: seats
+  aggregation: max
+  dimensions:
+  - account
+principles:
+- name: Visibility
+  description: Track Log Unit burn per project/key in the Literal AI dashboard and map to teams.
+- name: Allocation
+  description: Use separate projects/API keys per workload to attribute ingestion cost to cost centers.
+- name: Optimization
+  description: Sample or filter low-value traces, tune retention windows, and avoid duplicate logging to control Log Unit consumption.
+- name: Accountability
+  description: Assign project owners and review monthly Log Unit and seat usage against budget.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
