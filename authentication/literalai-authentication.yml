@@ -1,0 +1,17 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/literalai-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: ApiKeyAuth
+  type: apiKey
+  in: header
+  parameter: x-api-key
+  description: Project API key from the Literal AI dashboard, supplied via the LITERAL_API_KEY
+    environment variable in the SDKs.
+  sources:
+  - openapi/literalai-openapi.yml

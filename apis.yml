@@ -141,6 +141,10 @@ apis:
     numeric, categorical, or boolean - for feedback collection and offline/online
     evaluation.
 common:
+- type: DomainSecurity
+  url: security/literalai-domain-security.yml
+- type: Authentication
+  url: authentication/literalai-authentication.yml
 - type: GitHubOrganization
   url: https://github.com/Chainlit
 - type: LinkedIn
