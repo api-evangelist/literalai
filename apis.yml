@@ -141,6 +141,8 @@ apis:
     numeric, categorical, or boolean - for feedback collection and offline/online
     evaluation.
 common:
+- type: AgenticAccess
+  url: agentic-access/literalai-agentic-access.yml
 - type: DomainSecurity
   url: security/literalai-domain-security.yml
 - type: Authentication
