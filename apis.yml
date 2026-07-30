@@ -7,7 +7,20 @@ description: Literal AI is the collaborative observability, evaluation, and anal
   Its API is GraphQL (POST /api/graphql) consumed through Python and TypeScript SDKs,
   capturing threads, steps, generations, datasets, experiments, prompts, and scores,
   with an additional OpenTelemetry (OTLP) ingestion path for traces.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/literalai.png
 tags:
 - AI
 - LLM
@@ -18,128 +31,30 @@ created: '2026-06-20'
 modified: '2026-06-20'
 specificationVersion: '0.19'
 apis:
-- aid: literalai:threads-steps
-  name: Literal AI Threads & Steps API
-  tags:
-  - Threads
-  - Steps
-  - Tracing
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+- aid: literalai:literalai-graphql-api
+  name: Literal AI GraphQL API
+  description: The GraphQL API from Literal AI — 1 operation(s) for graphql.
   humanURL: https://docs.literalai.com/python-client/api-reference/api
   baseURL: https://cloud.getliteral.ai/api/graphql
-  properties:
-  - url: https://docs.literalai.com/observability/concepts
-    type: Documentation
-  - url: https://docs.literalai.com/python-client/api-reference/api
-    type: APIReference
-  - url: openapi/literalai-openapi.yml
-    type: OpenAPI
-  - url: graphql/literalai-graphql.md
-    type: GraphQL
-  description: Create, read, update, upsert, and delete conversation threads and the
-    nested steps (runs, tools, retrievals, LLM calls) that trace an LLM application's
-    execution, queried and mutated over GraphQL.
-- aid: literalai:generations
-  name: Literal AI Generations API
   tags:
-  - Generations
-  - LLM
-  - Logging
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.literalai.com/python-client/api-reference/api
-  baseURL: https://cloud.getliteral.ai/api/graphql
+  - GraphQL
   properties:
-  - url: https://docs.literalai.com/observability/concepts
-    type: Documentation
-  - url: https://docs.literalai.com/python-client/api-reference/api
-    type: APIReference
-  - url: openapi/literalai-openapi.yml
-    type: OpenAPI
-  - url: graphql/literalai-graphql.md
-    type: GraphQL
-  description: Log and paginate chat and completion generations - prompts, model,
-    settings, token usage, and outputs - with filtering for analytics and evaluation.
-- aid: literalai:datasets
-  name: Literal AI Datasets API
-  tags:
-  - Datasets
-  - Evaluation
-  - Test Data
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.literalai.com/python-client/api-reference/api
-  baseURL: https://cloud.getliteral.ai/api/graphql
-  properties:
-  - url: https://docs.literalai.com/evaluation/datasets
-    type: Documentation
-  - url: https://docs.literalai.com/python-client/api-reference/api
-    type: APIReference
-  - url: openapi/literalai-openapi.yml
-    type: OpenAPI
-  - url: graphql/literalai-graphql.md
-    type: GraphQL
-  description: Build and manage datasets and dataset items - curated from production
-    steps or created manually - that serve as ground truth for evaluation and experiments.
-- aid: literalai:experiments
-  name: Literal AI Experiments API
-  tags:
-  - Experiments
-  - Evaluation
-  - Benchmarking
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.literalai.com/python-client/api-reference/api
-  baseURL: https://cloud.getliteral.ai/api/graphql
-  properties:
-  - url: https://docs.literalai.com/evaluation/experiments
-    type: Documentation
-  - url: https://docs.literalai.com/python-client/api-reference/api
-    type: APIReference
-  - url: openapi/literalai-openapi.yml
-    type: OpenAPI
-  - url: graphql/literalai-graphql.md
-    type: GraphQL
-  description: Create dataset experiments and record per-item experiment runs with
-    scores to benchmark prompt, model, and pipeline changes over time.
-- aid: literalai:prompts
-  name: Literal AI Prompts API
-  tags:
-  - Prompts
-  - Versioning
-  - Templates
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.literalai.com/python-client/api-reference/api
-  baseURL: https://cloud.getliteral.ai/api/graphql
-  properties:
-  - url: https://docs.literalai.com/prompt-engineering/prompts
-    type: Documentation
-  - url: https://docs.literalai.com/python-client/api-reference/api
-    type: APIReference
-  - url: openapi/literalai-openapi.yml
-    type: OpenAPI
-  - url: graphql/literalai-graphql.md
-    type: GraphQL
-  description: Version, store, and retrieve prompt templates with their model settings,
-    enabling collaborative prompt engineering and A/B testing against deployed apps.
-- aid: literalai:scores
-  name: Literal AI Scores API
-  tags:
-  - Scores
-  - Feedback
-  - Evaluation
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.literalai.com/python-client/api-reference/api
-  baseURL: https://cloud.getliteral.ai/api/graphql
-  properties:
-  - url: https://docs.literalai.com/evaluation/scores
-    type: Documentation
-  - url: https://docs.literalai.com/python-client/api-reference/api
-    type: APIReference
-  - url: openapi/literalai-openapi.yml
-    type: OpenAPI
-  - url: graphql/literalai-graphql.md
-    type: GraphQL
-  description: Attach human, AI, and code-based scores to steps and generations -
-    numeric, categorical, or boolean - for feedback collection and offline/online
-    evaluation.
+  - type: OpenAPI
+    url: openapi/literalai-graphql-api-openapi.yml
+  - type: Documentation
+    url: https://docs.literalai.com/observability/concepts
+  - type: APIReference
+    url: https://docs.literalai.com/python-client/api-reference/api
+  - type: GraphQL
+    url: graphql/literalai-graphql.md
+  - type: Documentation
+    url: https://docs.literalai.com/evaluation/datasets
+  - type: Documentation
+    url: https://docs.literalai.com/evaluation/experiments
+  - type: Documentation
+    url: https://docs.literalai.com/prompt-engineering/prompts
+  - type: Documentation
+    url: https://docs.literalai.com/evaluation/scores
 common:
 - type: AgenticAccess
   url: agentic-access/literalai-agentic-access.yml
