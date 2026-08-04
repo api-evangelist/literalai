@@ -1,0 +1,14 @@
+{
+  "provider": "literalai",
+  "sources": [
+    "literalai-graphql-api-openapi.yml"
+  ],
+  "outputs": [
+    "literalai-graphql-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
