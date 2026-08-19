@@ -1,0 +1,246 @@
+{
+  "item": [
+    {
+      "id": "26d7b0db-c1cb-41db-a068-bfa2895a6089",
+      "name": "GraphQL",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "307956fd-3ebe-4ceb-99fa-5d1f2cfac60c",
+          "name": "Execute a GraphQL query or mutation.",
+          "request": {
+            "name": "Execute a GraphQL query or mutation.",
+            "description": {
+              "content": "Single GraphQL endpoint for all Literal AI operations - threads, steps, generations, datasets, experiments, prompts, and scores. The request body carries a GraphQL document and an optional variables object; responses follow the standard GraphQL { data, errors } envelope.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "graphql"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"<string>\",\n  \"operationName\": \"<string>\",\n  \"variables\": {\n    \"key_0\": true\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fade9937-2fdd-4f05-b6ec-5d056370dbbe",
+              "name": "GraphQL response. HTTP 200 is returned even for GraphQL-level errors, which appear in the errors array.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "graphql"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"query GetThread($id: String!) { thread(id: $id) { id name steps { id type input output } } }\",\n  \"variables\": {\n    \"id\": \"thread_123\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"key_0\": false,\n    \"key_1\": \"string\"\n  },\n  \"errors\": [\n    {\n      \"message\": \"string\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"locations\": [\n        {\n          \"line\": 1001,\n          \"column\": 3709\n        },\n        {\n          \"line\": 4509,\n          \"column\": 7174\n        }\n      ],\n      \"extensions\": {\n        \"key_0\": 9159.382376750014,\n        \"key_1\": true\n      }\n    },\n    {\n      \"message\": \"string\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"locations\": [\n        {\n          \"line\": 8911,\n          \"column\": 2171\n        },\n        {\n          \"line\": 9598,\n          \"column\": 5128\n        }\n      ],\n      \"extensions\": {\n        \"key_0\": 3374.996421369313,\n        \"key_1\": false,\n        \"key_2\": 1567,\n        \"key_3\": 2590.647487068216\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5630daf6-5641-4328-9a9f-1d75243ede04",
+              "name": "Missing or invalid x-api-key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "graphql"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"query GetThread($id: String!) { thread(id: $id) { id name steps { id type input output } } }\",\n  \"variables\": {\n    \"id\": \"thread_123\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "833085d0-42dc-4cdc-820f-d24239d2bcad",
+              "name": "Rate limit / log-unit quota exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "graphql"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"query GetThread($id: String!) { thread(id: $id) { id name steps { id type input output } } }\",\n  \"variables\": {\n    \"id\": \"thread_123\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://cloud.getliteral.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "21bba69d-9e87-400d-94a9-7512ee6e0006",
+    "name": "Literal AI GraphQL API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "HTTP transport model for the Literal AI observability, evaluation, and analytics platform. The Literal AI API is GraphQL: a single POST endpoint at /api/graphql accepts a GraphQL query/mutation document and variables. This OpenAPI document models that single endpoint so the GraphQL surface is discoverable in REST tooling; the full type system lives in graphql/literalai-schema.graphql. Authentication uses the x-api-key header.\n\nContact Support:\n Name: Literal AI Support",
+      "type": "text/plain"
+    }
+  }
+}
