@@ -50,16 +50,16 @@ created: '2026-06-20'
 modified: '2026-06-20'
 specificationVersion: '0.23'
 apis:
-- aid: literalai:literalai-graphql-api
-  name: Literal AI GraphQL API
-  description: The GraphQL API from Literal AI — 1 operation(s) for graphql.
+- aid: literalai:literalai-graph-ql-api
+  name: Literal AI Graph QL API
+  description: The Graph QL API from Literal AI — 1 operation(s) for graph ql.
   humanURL: https://docs.literalai.com/python-client/api-reference/api
   baseURL: https://cloud.getliteral.ai/api/graphql
   tags:
-  - GraphQL
+  - Graph QL
   properties:
   - type: OpenAPI
-    url: openapi/literalai-graphql-api-openapi.yml
+    url: openapi/literalai-graph-ql-api-openapi.yml
   - type: Documentation
     url: https://docs.literalai.com/observability/concepts
   - type: APIReference
