@@ -56,6 +56,8 @@ apis:
   humanURL: https://docs.literalai.com/python-client/api-reference/api
   baseURL: https://cloud.getliteral.ai/api/graphql
   tags:
+  - GraphQL
+  tags_raw:
   - Graph QL
   properties:
   - type: OpenAPI
