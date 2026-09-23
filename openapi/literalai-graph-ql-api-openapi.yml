@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Literal AI GraphQL API
+  title: Literal AI Graph QL API
   description: 'HTTP transport model for the Literal AI observability, evaluation, and analytics platform. The Literal AI API is GraphQL: a single POST endpoint at /api/graphql accepts a GraphQL query/mutation document and variables. This OpenAPI document models that single endpoint so the GraphQL surface is discoverable in REST tooling; the full type system lives in graphql/literalai-schema.graphql. Authentication uses the x-api-key header.'
   termsOfService: https://www.literalai.com/terms
   contact:
@@ -19,14 +19,14 @@ servers:
 security:
 - ApiKeyAuth: []
 tags:
-- name: GraphQL
+- name: Graph QL
 paths:
   /api/graphql:
     post:
       operationId: graphql
       tags:
-      - GraphQL
-      summary: Execute a GraphQL query or mutation.
+      - Graph QL
+      summary: Execute a GraphQL query or mutation
       description: Single GraphQL endpoint for all Literal AI operations - threads, steps, generations, datasets, experiments, prompts, and scores. The request body carries a GraphQL document and an optional variables object; responses follow the standard GraphQL { data, errors } envelope.
       requestBody:
         required: true
@@ -63,12 +63,34 @@ paths:
           description: Rate limit / log-unit quota exceeded.
 components:
   schemas:
+    GraphQLError:
+      type: object
+      properties:
+        message:
+          type: string
+        path:
+          type: array
+          items:
+            type: string
+        locations:
+          type: array
+          items:
+            type: object
+            properties:
+              line:
+                type: integer
+              column:
+                type: integer
+        extensions:
+          type: object
+          additionalProperties: true
     GraphQLResponse:
       type: object
       properties:
         data:
-          type: object
-          nullable: true
+          type:
+          - object
+          - 'null'
           additionalProperties: true
           description: Result payload keyed by the requested fields.
         errors:
@@ -91,27 +113,6 @@ components:
           type: object
           additionalProperties: true
           description: Variables referenced by the GraphQL document.
-    GraphQLError:
-      type: object
-      properties:
-        message:
-          type: string
-        path:
-          type: array
-          items:
-            type: string
-        locations:
-          type: array
-          items:
-            type: object
-            properties:
-              line:
-                type: integer
-              column:
-                type: integer
-        extensions:
-          type: object
-          additionalProperties: true
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
