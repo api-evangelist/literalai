@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Literal AI Graph QL API
+  title: Literal AI GraphQL API
   description: 'HTTP transport model for the Literal AI observability, evaluation, and analytics platform. The Literal AI API is GraphQL: a single POST endpoint at /api/graphql accepts a GraphQL query/mutation document and variables. This OpenAPI document models that single endpoint so the GraphQL surface is discoverable in REST tooling; the full type system lives in graphql/literalai-schema.graphql. Authentication uses the x-api-key header.'
   termsOfService: https://www.literalai.com/terms
   contact:
@@ -63,6 +63,20 @@ paths:
           description: Rate limit / log-unit quota exceeded.
 components:
   schemas:
+    GraphQLResponse:
+      type: object
+      properties:
+        data:
+          type:
+          - object
+          - 'null'
+          additionalProperties: true
+          description: Result payload keyed by the requested fields.
+        errors:
+          type: array
+          description: GraphQL execution errors, when present.
+          items:
+            $ref: '#/components/schemas/GraphQLError'
     GraphQLError:
       type: object
       properties:
@@ -84,20 +98,6 @@ components:
         extensions:
           type: object
           additionalProperties: true
-    GraphQLResponse:
-      type: object
-      properties:
-        data:
-          type:
-          - object
-          - 'null'
-          additionalProperties: true
-          description: Result payload keyed by the requested fields.
-        errors:
-          type: array
-          description: GraphQL execution errors, when present.
-          items:
-            $ref: '#/components/schemas/GraphQLError'
     GraphQLRequest:
       type: object
       required:
