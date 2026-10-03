@@ -63,6 +63,21 @@ paths:
           description: Rate limit / log-unit quota exceeded.
 components:
   schemas:
+    GraphQLRequest:
+      type: object
+      required:
+      - query
+      properties:
+        query:
+          type: string
+          description: The GraphQL query or mutation document.
+        operationName:
+          type: string
+          description: Name of the operation to run when the document defines several.
+        variables:
+          type: object
+          additionalProperties: true
+          description: Variables referenced by the GraphQL document.
     GraphQLResponse:
       type: object
       properties:
@@ -98,21 +113,6 @@ components:
         extensions:
           type: object
           additionalProperties: true
-    GraphQLRequest:
-      type: object
-      required:
-      - query
-      properties:
-        query:
-          type: string
-          description: The GraphQL query or mutation document.
-        operationName:
-          type: string
-          description: Name of the operation to run when the document defines several.
-        variables:
-          type: object
-          additionalProperties: true
-          description: Variables referenced by the GraphQL document.
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
