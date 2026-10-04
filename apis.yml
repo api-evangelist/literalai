@@ -34,6 +34,10 @@ accessModel:
   generated: '2026-09-03'
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/literalai.png
+x-docs-platform: mintlify
+x-docs-platform-confidence: medium
+x-docs-platform-checked: 2026-10-03
+x-docs-hosting: vercel
 tags:
 - Artificial Intelligence
 - LLM
@@ -56,6 +60,8 @@ apis:
   humanURL: https://docs.literalai.com/python-client/api-reference/api
   baseURL: https://cloud.getliteral.ai/api/graphql
   tags:
+  - GraphQL
+  tags_raw:
   - Graph QL
   properties:
   - type: OpenAPI
