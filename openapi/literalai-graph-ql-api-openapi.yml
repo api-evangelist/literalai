@@ -63,6 +63,27 @@ paths:
           description: Rate limit / log-unit quota exceeded.
 components:
   schemas:
+    GraphQLError:
+      type: object
+      properties:
+        message:
+          type: string
+        path:
+          type: array
+          items:
+            type: string
+        locations:
+          type: array
+          items:
+            type: object
+            properties:
+              line:
+                type: integer
+              column:
+                type: integer
+        extensions:
+          type: object
+          additionalProperties: true
     GraphQLRequest:
       type: object
       required:
@@ -92,27 +113,6 @@ components:
           description: GraphQL execution errors, when present.
           items:
             $ref: '#/components/schemas/GraphQLError'
-    GraphQLError:
-      type: object
-      properties:
-        message:
-          type: string
-        path:
-          type: array
-          items:
-            type: string
-        locations:
-          type: array
-          items:
-            type: object
-            properties:
-              line:
-                type: integer
-              column:
-                type: integer
-        extensions:
-          type: object
-          additionalProperties: true
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
