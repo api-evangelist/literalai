@@ -1,4 +1,4 @@
-# Literal AI (literalai)
+# Literal AI
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,166 +66,121 @@
 
 Literal AI is the collaborative observability, evaluation, and analytics platform for building production-grade LLM applications, from the Chainlit team. Its API is GraphQL (POST /api/graphql) consumed through Python and TypeScript SDKs, capturing threads, steps, generations, datasets, experiments, prompts, and scores, with an additional OpenTelemetry (OTLP) ingestion path for traces.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/literalai/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/literalai/refs/heads/main/apis.yml)
+**Areas:** Artificial Intelligence · LLM · Observability · Evaluation · Monitoring
 
-## Tags
+## Literal AI on APIs.io
 
-- AI
-- LLM
-- Observability
-- Evaluation
-- Monitoring
+Everything profiled for Literal AI is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/literalai/](https://apis.io/providers/literalai/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (1)
 
-- **Created:** 2026-06-20
-- **Modified:** 2026-06-20
+- [Literal AI Graph QL API](https://apis.io/apis/literalai/literalai-graph-ql-api/) — The Graph QL API from Literal AI — 1 operation(s) for graph ql.
 
-## APIs
+### Published properties
 
-### Literal AI Threads & Steps API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Create, read, update, upsert, and delete conversation threads and the nested steps (runs, tools, retrievals, LLM calls) that trace an LLM application's execution, queried and mutated over GraphQL.
+#### GraphQL (1)
 
-- **Human URL:** [https://docs.literalai.com/python-client/api-reference/api](https://docs.literalai.com/python-client/api-reference/api)
-- **Base URL:** `https://cloud.getliteral.ai/api/graphql`
+GraphQL schemas.
 
-#### Tags
+- [Literal AI GraphQL API](https://apis.io/graphqls/literalai/literalai-graphql/)
 
-- Threads
-- Steps
-- Tracing
+#### Agentic access (1)
 
-#### Properties
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- [Documentation](https://docs.literalai.com/observability/concepts)
-- [API Reference](https://docs.literalai.com/python-client/api-reference/api)
-- [OpenAPI](openapi/literalai-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [GraphQL](graphql/literalai-graphql.md) — [GraphQL Specification](https://spec.graphql.org/)
-- [Postman Collection](collections/literalai.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/literalai.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Literalai Agentic Access](https://apis.io/agentic-access/literalai/literalai-agentic-access/)
 
-### Literal AI Generations API
+#### Collections (2)
 
-Log and paginate chat and completion generations - prompts, model, settings, token usage, and outputs - with filtering for analytics and evaluation.
+Postman and Open Collection request collections.
 
-- **Human URL:** [https://docs.literalai.com/python-client/api-reference/api](https://docs.literalai.com/python-client/api-reference/api)
-- **Base URL:** `https://cloud.getliteral.ai/api/graphql`
+- [Literal AI API](https://apis.io/collections/literalai/open-literalai/)
+- [Literal AI GraphQL API](https://apis.io/collections/literalai/open-literalai-graphql-api/)
 
-#### Tags
+#### Security (2)
 
-- Generations
-- LLM
-- Logging
+Authentication, trust centre, and vulnerability disclosure.
 
-#### Properties
+- [Literalai Authentication](https://apis.io/security/literalai/literalai-authentication/)
+- [Literalai Domain Security](https://apis.io/security/literalai/literalai-domain-security/)
 
-- [Documentation](https://docs.literalai.com/observability/concepts)
-- [API Reference](https://docs.literalai.com/python-client/api-reference/api)
-- [OpenAPI](openapi/literalai-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [GraphQL](graphql/literalai-graphql.md) — [GraphQL Specification](https://spec.graphql.org/)
-- [Postman Collection](collections/literalai.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/literalai.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Plans and pricing (1)
 
-### Literal AI Datasets API
+Published plans, tiers and prices.
 
-Build and manage datasets and dataset items - curated from production steps or created manually - that serve as ground truth for evaluation and experiments.
+- [Literalai Plans Pricing](https://apis.io/plans/literalai/literalai-plans-pricing/)
 
-- **Human URL:** [https://docs.literalai.com/python-client/api-reference/api](https://docs.literalai.com/python-client/api-reference/api)
-- **Base URL:** `https://cloud.getliteral.ai/api/graphql`
+#### Rate limits (1)
 
-#### Tags
+Published request limits.
 
-- Datasets
-- Evaluation
-- Test Data
+- [Literalai Rate Limits](https://apis.io/rate-limits/literalai/literalai-rate-limits/)
 
-#### Properties
+#### FinOps (1)
 
-- [Documentation](https://docs.literalai.com/evaluation/datasets)
-- [API Reference](https://docs.literalai.com/python-client/api-reference/api)
-- [OpenAPI](openapi/literalai-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [GraphQL](graphql/literalai-graphql.md) — [GraphQL Specification](https://spec.graphql.org/)
-- [Postman Collection](collections/literalai.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/literalai.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+What the API costs to run, by operation.
 
-### Literal AI Experiments API
+- [Literalai Finops](https://apis.io/finops/literalai/literalai-finops/)
 
-Create dataset experiments and record per-item experiment runs with scores to benchmark prompt, model, and pipeline changes over time.
+## Where to find this API
 
-- **Human URL:** [https://docs.literalai.com/python-client/api-reference/api](https://docs.literalai.com/python-client/api-reference/api)
-- **Base URL:** `https://cloud.getliteral.ai/api/graphql`
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-#### Tags
-
-- Experiments
-- Evaluation
-- Benchmarking
-
-#### Properties
-
-- [Documentation](https://docs.literalai.com/evaluation/experiments)
-- [API Reference](https://docs.literalai.com/python-client/api-reference/api)
-- [OpenAPI](openapi/literalai-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [GraphQL](graphql/literalai-graphql.md) — [GraphQL Specification](https://spec.graphql.org/)
-- [Postman Collection](collections/literalai.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/literalai.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Literal AI Prompts API
-
-Version, store, and retrieve prompt templates with their model settings, enabling collaborative prompt engineering and A/B testing against deployed apps.
-
-- **Human URL:** [https://docs.literalai.com/python-client/api-reference/api](https://docs.literalai.com/python-client/api-reference/api)
-- **Base URL:** `https://cloud.getliteral.ai/api/graphql`
-
-#### Tags
-
-- Prompts
-- Versioning
-- Templates
-
-#### Properties
-
-- [Documentation](https://docs.literalai.com/prompt-engineering/prompts)
-- [API Reference](https://docs.literalai.com/python-client/api-reference/api)
-- [OpenAPI](openapi/literalai-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [GraphQL](graphql/literalai-graphql.md) — [GraphQL Specification](https://spec.graphql.org/)
-- [Postman Collection](collections/literalai.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/literalai.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Literal AI Scores API
-
-Attach human, AI, and code-based scores to steps and generations - numeric, categorical, or boolean - for feedback collection and offline/online evaluation.
-
-- **Human URL:** [https://docs.literalai.com/python-client/api-reference/api](https://docs.literalai.com/python-client/api-reference/api)
-- **Base URL:** `https://cloud.getliteral.ai/api/graphql`
-
-#### Tags
-
-- Scores
-- Feedback
-- Evaluation
-
-#### Properties
-
-- [Documentation](https://docs.literalai.com/evaluation/scores)
-- [API Reference](https://docs.literalai.com/python-client/api-reference/api)
-- [OpenAPI](openapi/literalai-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [GraphQL](graphql/literalai-graphql.md) — [GraphQL Specification](https://spec.graphql.org/)
-- [Postman Collection](collections/literalai.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/literalai.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-## Common Properties
-
-- [GitHub Organization](https://github.com/Chainlit)
-- [LinkedIn](https://www.linkedin.com/company/chainlit)
 - [Website](https://www.literalai.com)
 - [Documentation](https://docs.literalai.com)
-- [Plans](plans/literalai-plans-pricing.yml)
-- [Rate Limits](rate-limits/literalai-rate-limits.yml)
-- [Fin Ops](finops/literalai-finops.yml)
+- [GitHub](https://github.com/Chainlit)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 27.1** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 52.7 |
+| Contract governance | 0.0 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 28.6 |
+| Access clarity | 7.9 |
+
+**Agent readiness 22.9** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 10.9** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/literalai/](https://apis.io/providers/literalai/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Literal AI: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/literalai/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
